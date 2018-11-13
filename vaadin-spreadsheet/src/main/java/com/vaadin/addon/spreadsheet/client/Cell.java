@@ -106,7 +106,7 @@ public class Cell {
                     && sheetWidget.measureValueWidth(cellStyle, value) > getCellWidth()) {
                 element.setInnerText("###");
             } else {
-                element.setInnerText(value);
+                element.setInnerHTML(value.replace("\n", "<br />"));
             }
         }
         
