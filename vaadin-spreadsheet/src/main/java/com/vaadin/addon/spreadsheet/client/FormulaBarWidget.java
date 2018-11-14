@@ -37,11 +37,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.*;
 import com.vaadin.addon.spreadsheet.client.SheetWidget.CellCoord;
 
 public class FormulaBarWidget extends Composite {
@@ -74,7 +70,7 @@ public class FormulaBarWidget extends Composite {
 
     }
 
-    private final TextBox formulaField;
+    private final TextArea formulaField;
     private final ListBox namedRangeBox;
     private final HTML namedRangeBoxArrow;
     private final TextBox addressField;
@@ -88,7 +84,7 @@ public class FormulaBarWidget extends Composite {
     // editing control
     private boolean editingFormula;
     private boolean enableKeyboardNavigation;
-    private TextBox currentEditor;
+    private TextBoxBase currentEditor;
     private boolean inlineEdit;
 
     /**
@@ -154,8 +150,9 @@ public class FormulaBarWidget extends Composite {
         sheetInputEventListener = GWT.create(SheetInputEventListener.class);
         sheetInputEventListener.setSheetWidget(widget, this);
 
-        formulaField = new TextBox();
+        formulaField = new TextArea();
         formulaField.setTabIndex(2);
+        formulaField.setStyleName("unresizable-textarea");
         addressField = new TextBox();
         addressField.setTabIndex(1);
         formulaField.setStyleName("functionfield");
@@ -182,6 +179,8 @@ public class FormulaBarWidget extends Composite {
         right.add(formulaField);
         panel.add(left);
         panel.add(right);
+
+        panel.setHeight("150px");
 
         initWidget(panel);
 
@@ -641,7 +640,7 @@ public class FormulaBarWidget extends Composite {
         clearFormulaSelection();
     }
 
-    private void checkFormulaEdit(final TextBox editor) {
+    private void checkFormulaEdit(final TextBoxBase editor) {
 
         // give text box time to fill value
         Scheduler.get().scheduleDeferred(new ScheduledCommand() {
