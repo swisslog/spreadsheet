@@ -26,6 +26,8 @@ import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Overflow;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 public class Cell {
 
@@ -106,7 +108,8 @@ public class Cell {
                     && sheetWidget.measureValueWidth(cellStyle, value) > getCellWidth()) {
                 element.setInnerText("###");
             } else {
-                element.setInnerHTML(value.replace("\n", "<br />"));
+                SafeHtml safeHtml = new SafeHtmlBuilder().appendEscapedLines(value).toSafeHtml();
+                element.setInnerSafeHtml(safeHtml);
             }
         }
         
