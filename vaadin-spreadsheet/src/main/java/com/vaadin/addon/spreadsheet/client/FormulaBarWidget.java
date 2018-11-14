@@ -180,7 +180,7 @@ public class FormulaBarWidget extends Composite {
         panel.add(left);
         panel.add(right);
 
-        panel.setHeight("150px");
+        panel.setHeight("100px");
 
         initWidget(panel);
 
