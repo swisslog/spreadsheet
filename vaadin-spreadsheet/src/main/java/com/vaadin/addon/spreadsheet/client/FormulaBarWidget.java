@@ -580,12 +580,6 @@ public class FormulaBarWidget extends Composite {
             event.stopPropagation();
             event.preventDefault();
             break;
-        case KeyCodes.KEY_ENTER:
-            handler.onFormulaEnter(formulaField.getValue());
-            stopEditing();
-            event.stopPropagation();
-            event.preventDefault();
-            break;
         case KeyCodes.KEY_TAB:
             handler.onFormulaTab(formulaField.getValue(), !event.getShiftKey());
             stopEditing();
