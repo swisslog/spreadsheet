@@ -159,6 +159,10 @@ $spreadsheet-freeze-pane-border: 1px solid $default-font-color !default;
         opacity: 0;
       }
 
+      .functionfield {
+        resize: none;
+      }
+
       .fixed-left-panel {
         float: left;
         width: 180px;

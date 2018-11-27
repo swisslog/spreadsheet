@@ -26,6 +26,8 @@ import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Overflow;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 public class Cell {
 
@@ -106,7 +108,8 @@ public class Cell {
                     && sheetWidget.measureValueWidth(cellStyle, value) > getCellWidth()) {
                 element.setInnerText("###");
             } else {
-                element.setInnerText(value);
+                SafeHtml safeHtml = new SafeHtmlBuilder().appendEscapedLines(value).toSafeHtml();
+                element.setInnerSafeHtml(safeHtml);
             }
         }
         
@@ -160,13 +163,7 @@ public class Cell {
             overflowDiv.getStyle().setOverflow(Overflow.HIDDEN);
             overflowDiv.getStyle().setTextOverflow(Style.TextOverflow.ELLIPSIS);
 
-            NodeList<Node> childNodes = element.getChildNodes();
-            if (childNodes != null) {
-                for (int i = childNodes.getLength() -1; i >= 0 ; i--) {
-                    overflowDiv.appendChild(childNodes
-                        .getItem(i));
-                }
-            }
+            overflowDiv.setInnerHTML(element.getInnerHTML());
             element.setInnerHTML(null);
             element.appendChild(overflowDiv);
             appendOverlayElements();

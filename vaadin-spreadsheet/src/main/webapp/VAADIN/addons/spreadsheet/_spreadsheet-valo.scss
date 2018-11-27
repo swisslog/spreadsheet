@@ -209,7 +209,11 @@
         height: 100%;
         opacity: 0;
       }
-      
+
+      .functionfield {
+        resize: none;
+      }
+
       .fixed-left-panel {
         @include box-sizing(border-box);
         float: left;

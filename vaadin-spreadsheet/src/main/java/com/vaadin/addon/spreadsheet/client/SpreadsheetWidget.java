@@ -1017,6 +1017,10 @@ public class SpreadsheetWidget extends Composite implements SheetHandler,
         checkEditableAndNotify();
         if (!cellLocked) {
             if (!inlineEditing && !customCellEditorDisplayed) {
+                if (value.contains("\n")) {
+                    return;
+                }
+
                 inlineEditing = true;
                 sheetWidget.startEditingCell(true, true, value);
                 formulaBarWidget.setInFullFocus(true);
@@ -1172,7 +1176,18 @@ public class SpreadsheetWidget extends Composite implements SheetHandler,
                 checkEditableAndNotify();
                 if (!sheetWidget.isSelectedCellCustomized() && !inlineEditing
                         && !cellLocked && !customCellEditorDisplayed) {
-                    cachedCellValue = sheetWidget.getSelectedCellLatestValue();
+                    String cellValue = sheetWidget.getSelectedCellLatestValue();
+
+                    if (cellValue.contains("\n")) {
+                        if (event.getShiftKey()) {
+                            selectionHandler.moveSelectionUp(false);
+                        } else {
+                            selectionHandler.moveSelectionDown(false);
+                        }
+                        break;
+                    }
+
+                    cachedCellValue = cellValue;
                     formulaBarWidget.cacheFormulaFieldValue();
                     formulaBarEditing = false;
                     inlineEditing = true;
