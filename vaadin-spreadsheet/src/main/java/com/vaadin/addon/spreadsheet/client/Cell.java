@@ -163,13 +163,7 @@ public class Cell {
             overflowDiv.getStyle().setOverflow(Overflow.HIDDEN);
             overflowDiv.getStyle().setTextOverflow(Style.TextOverflow.ELLIPSIS);
 
-            NodeList<Node> childNodes = element.getChildNodes();
-            if (childNodes != null) {
-                for (int i = childNodes.getLength() -1; i >= 0 ; i--) {
-                    overflowDiv.appendChild(childNodes
-                        .getItem(i));
-                }
-            }
+            overflowDiv.setInnerHTML(element.getInnerHTML());
             element.setInnerHTML(null);
             element.appendChild(overflowDiv);
             appendOverlayElements();
